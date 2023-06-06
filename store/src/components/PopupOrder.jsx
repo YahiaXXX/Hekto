@@ -1,7 +1,7 @@
 import React,{useRef,useEffect} from 'react'
 import {GiCancel} from "react-icons/gi"
 
-function PopupOrder({setShowPopup}) {
+function PopupOrder({setShowPopup,orderInfo}) {
     const popupRef = useRef(null);
       useEffect(() => {
     const handleClickOutside = (event) => {
@@ -19,19 +19,17 @@ function PopupOrder({setShowPopup}) {
     setShowPopup(false)
   };
   return (
-    <div ref={popupRef} className='flex bg-white flex-col justify-between py-4 w-[60%] gap-6' >
+    <div ref={popupRef} className=' animate-slideup flex bg-white flex-col justify-between py-4 w-[60%] gap-6' >
         <div className=' px-8 w-full flex justify-end items-center'  >
 
         <GiCancel onClick={()=>closePopup()} className=' text-[30px] hover:cursor-pointer hover:drop-shadow-xl' />
         </div>
         <div className=' w-full flex justify-center items-center flex-col gap-2 ' >
-            <h1 className=' font-bold text-[32px]' >Order #51531</h1>
+            <h1 className=' font-bold text-[25px]' >{`Order: ${orderInfo.orderId}`}</h1>
             <div className='flex flex-col justify-start items-start' >
-            <p >Customer: <span>Yahia</span> </p>
-            <p>Product: <span>Yahia</span> </p>
-            <p>Qty: <span>Yahia</span> </p>
-            <p>Totale price: <span>Yahia</span> </p>
-            <p>Adress: <span>Yahia</span> </p>
+            <p >Customer: <span>{orderInfo.userId}</span> </p>
+            <p>Totale price: <span>{orderInfo.totalPrice}</span> </p>
+            <p>Adress: <span></span> </p>
             </div>
            
 

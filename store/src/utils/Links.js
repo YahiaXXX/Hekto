@@ -34,11 +34,6 @@ export const linksPremium = [
           link:'orders'
         },
         {
-          name: 'Historical',
-          icon: <TfiTruck/>,
-          link:'historical'
-        },
-        {
             name: 'Customer complaint',
             icon: <GrCompliance/>,
             link:'customer complaint'

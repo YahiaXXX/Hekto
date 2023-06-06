@@ -15,6 +15,7 @@ const Sidebar = () => {
   const handleCloseSidebar = () => {
     if (activeMenu && screenSize <= 900) setActiveMenu(false);
   };
+  const {setPageName}=useStateContext()
 
 
   const activeLink =
@@ -29,7 +30,6 @@ const normalLink =
           <div className=" h-[10%] flex justify-center items-center">
             <Link
               to="/"
-              onClick={()=>{}}
               className=" justify-center items-center gap-4 ml-3 mt-4 flex text-xl font-extrabold tracking-tight text-slate-900"
             >
               <p className=" text-[30px]" ><FaStore className=" text-[30px]" /></p>
@@ -46,7 +46,7 @@ const normalLink =
                   <NavLink
                     key={item.name}
                     to={`/${item.link}`}
-                    onClick={()=>{}}
+                    onClick={()=>{setPageName(item.name)}}
                     style={({ isActive }) => ({
                       backgroundColor: isActive ? "#EDE0DD" : "",
                       color: isActive ? "black" : "white",
@@ -62,12 +62,6 @@ const normalLink =
                     {item.icon} <span className=" text-black text-[18px]">{item.name}</span></p> 
                   </NavLink>
                 ))}
-                <button onClick={()=>logoutUser()}  className=" hover:text-primary text-[20px] w-full flex justify-start px-6 gap-4 items-center " >
-                
-            Logout <HiOutlineLogout className=" text-[20px]" />
-           
-  
-                </button>
               </div>
             ))   
                   }

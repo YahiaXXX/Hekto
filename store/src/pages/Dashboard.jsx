@@ -94,11 +94,11 @@ const data = [
     "id": "JavaScript",
     "data": [
       {
-        "x": 2000,
+        "x": "jan",
         "y": 11
       },
       {
-        "x": 2001,
+        "x": "feb",
         "y": 29
       },
       {

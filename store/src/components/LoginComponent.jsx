@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import hero from "../assets/Intersect.png";
 import { Link } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import Cookies from 'js-cookie';
+import hero from "../assets/shopping.svg"
 
 import axios from "axios";
 import Loader from "./Loader";
@@ -51,9 +51,9 @@ function LoginComponent() {
   return (
     <section className=" h-screen w-full flex flex-row">
       <div className=" h-full sm:w-[50%] w-full flex flex-col items-center justify-center ">
-        <div className=" flex flex-col w-full h-full justify-center items-center px-10 py-16 ">
+        <div className=" flex flex-col w-full h-full justify-center items-center sm:px-16 px-8 ">
           <div className=" w-full  flex gap-6 flex-col sm:items-start items-center ">
-            <h2 className=" text-blue-400 font-roboto sm:leading-[70px] leading-[50px] sm:text-[62px] text-[32px] main-gradient font-bold">
+            <h2 className=" font-roboto sm:leading-[70px] leading-[50px] sm:text-[62px] text-[32px] main-gradient font-bold">
               Welcome Hekto seller
             </h2>
             <p className="text-base text-gray-500">
@@ -62,7 +62,7 @@ function LoginComponent() {
           </div>
 
           <div className="py-4 px-4 w-full flex flex-col justify-center items-center mt-10">
-            <div className=" w-full flex flex-col justify-center items-center">
+            <div className="w-full flex flex-col justify-center sm:items-start items-center">
               <div className=" w-[100%] md:w-[70%] flex justify-start items-center" >
               <p className=" text-[14px] font-semibold sm:mb-3 mb-2">Email</p>
               </div>
@@ -74,7 +74,7 @@ function LoginComponent() {
                 className=" w-[100%] md:w-[70%]  placeholder:text-gray-300 outline-none rounded-md bg-transparent border-solid border-[1px] border-gray-400 px-2 py-1.5 mb-4 text-[#616161]"
               />
             </div>
-            <div className=" w-full flex flex-col justify-center items-center mt-5">
+            <div className=" w-full flex flex-col justify-center sm:items-start items-center mt-5">
             <div className=" w-[100%] md:w-[70%] flex justify-start items-center" >
             <p className=" text-[14px] font-semibold sm:mb-3 mb-2">
                 Password
@@ -107,20 +107,20 @@ function LoginComponent() {
             
           </div>
 
-          <div className=" w-full flex flex-col items-center mt-4 ">
+          <div className="w-full flex flex-col sm:items-start items-center mt-4 ">
             <div className=" flex flex-col ss:w-[70%]   gap-4">
               <button
                 onClick={loginUser}
-                className=" bg-green-500 flex justify-center items-center w-full font-roboto sm:mt-10 mt-5 h-10 rounded-md font-semibold text-white "
+                className=" bg-green-400 flex justify-center items-center w-full font-roboto sm:mt-10 mt-5 h-10 rounded-md font-semibold text-white "
               >
                 {loading ? <Loader /> : "SIGN IN"}{" "}
               </button>
 
               <div className=" w-full flex flex-row items-center justify-center gap-4">
-                <p className=" text-[22px]">
+                <p className=" font-semibold text-[22px]">
                   Don't have an account?
                   <span className="main-gradient font-semibold">
-                    <Link className=" hover:cursor-pointer hover:underline text-blue-400">Contact us</Link>
+                    <Link className=" text-[18px] hover:cursor-pointer hover:underline text-slate-500 ">contact us</Link>
                   </span>
                 </p>
               </div>
@@ -129,9 +129,8 @@ function LoginComponent() {
         </div>
       </div>
 
-      <div className=" sm:flex hidden h-full w-[50%]">
-        <div className="bg-gradient-to-r w-full h-screen from-green-200 to-lime-700" />
-        {/* <img src={hero} alt="" className=" w-[100%] h-screen relative" /> */}
+      <div className=" bgSlider  sm:flex hidden h-full w-[50%]">
+        <img src={hero} alt="" className=" w-[100%] h-full relative" />
       </div>
     </section>
   );

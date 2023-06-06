@@ -4,8 +4,10 @@ import React,{useEffect,createContext,useContext,useState} from "react";
 
 const StateContext = createContext();
 
+
 export const ContextProvider = ({children})=>{
     const [activeMenu,setActiveMenu] = useState(false);
+    const [pageName,setPageName]=useState("Dashboard")
    
     
    
@@ -21,6 +23,8 @@ export const ContextProvider = ({children})=>{
         setActiveMenu,
         screenSize,
         setScreenSize,
+        pageName,
+        setPageName
         }} >
         {children}
 

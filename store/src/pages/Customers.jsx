@@ -129,14 +129,14 @@ const columns = [
 function Customers() {
   return (
     <div className=' px-5 py-5 flex flex-col' >
-        <div className=' bg-white w-[80%] justify-center items-center rounded-2xl px-4 py-3 gap-10 flex flex-row ' >
-            <div className=' w-[30%] flex flex-row gap-4' >
+        <div className=' bg-white md:w-[90%] w-full justify-center items-center rounded-2xl px-4 py-3 gap-10 flex ss:flex-row flex-col ' >
+            <div className=' ss:w-[30%] w-full flex sm:flex-row flex-col gap-4' >
             <div className=' flex justify-center items-center ' > 
                <div className=' bg-[#00AC4F] bg-opacity-50 flex justify-center items-center px-5 py-5 rounded-full ' >
                     <FiUsers className=' text-[20px]' />
                 </div>
                 </div> 
-                <div className=' flex flex-col' >
+                <div className=' justify-center items-center flex flex-col' >
                     <p className=' text-gray-400' >Total Customers</p>
                     <h1 className=' font-bold text-gray-500' >5,435</h1>
                     <p className=' gap-1 flex flex-row justify-center items-center' >
@@ -149,14 +149,14 @@ function Customers() {
 
 
             </div>
-            <div className=' h-[40px] w-[2px] bg-gray-200' />
-            <div className=' w-[30%] flex flex-row gap-4' >
+            <div className=' ss:flex hidden h-[40px] w-[2px] bg-gray-200' />
+            <div className=' ss:w-[30%] w-full flex sm:flex-row flex-col gap-4' >
             <div className=' flex justify-center items-center ' > 
                <div className=' bg-[#00AC4F] bg-opacity-50 flex justify-center items-center px-5 py-5 rounded-full ' >
                     <FiUsers className=' text-[20px]' />
                 </div>
                 </div> 
-                <div className=' flex flex-col' >
+                <div className=' justify-center items-center flex flex-col' >
                     <p className=' text-gray-400' >Total Customers</p>
                     <h1 className=' font-bold text-gray-500' >5,435</h1>
                     <p className=' gap-1 flex flex-row justify-center items-center' >
@@ -169,15 +169,15 @@ function Customers() {
 
 
             </div>
-            <div className=' h-[40px] w-[2px] bg-gray-200' />
-            <div className=' w-[30%] flex flex-row gap-4' >
+            <div className=' ss:flex hidden h-[40px] w-[2px] bg-gray-200' />
+            <div className=' ss:w-[30%] w-full flex sm:flex-row flex-col gap-4' >
             <div className=' flex justify-center items-center ' > 
                <div className=' bg-[#00AC4F] bg-opacity-50 flex justify-center items-center px-5 py-5 rounded-full ' >
                     <FiUsers className=' text-[20px]' />
                 </div>
                 </div> 
                 
-                <div className=' flex flex-col' >
+                <div className=' justify-center items-center flex flex-col' >
                     <p className=' text-gray-400' >Total Customers</p>
                     <h1 className=' font-bold text-gray-500' >5,435</h1>
                     <p className=' gap-1 flex flex-row justify-center items-center' >

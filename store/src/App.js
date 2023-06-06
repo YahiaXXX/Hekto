@@ -16,6 +16,7 @@ import AuthContext from "./contexts/AuthContext";
 import PrivateRoute2 from "./utils/PrivateRoute2";
 import { useStateContext } from "./contexts/ContextProvider";
 import NavbarMobile from "./components/NavbarMobile";
+import Settings from "./pages/Settings";
 
 function App() {
   const {authTokens,status} = useContext(AuthContext)
@@ -33,7 +34,7 @@ function App() {
       else{setActiveMenu(true)}
       },[screenSize])  
   return (
-    <div className=" relative h-[100vh] " >
+    <div className=" relative h-screen " >
 
        { authTokens && <NavbarMobile/> }
        { authTokens && activeMenu ? (
@@ -43,11 +44,11 @@ function App() {
           ) : (
             ""
           )}      
-    <div className=" h-[10%] " >
+    <div className={`${authTokens ? "h-[10%]" :"" }`} >
     { authTokens && <NavbarAdmin/> }
     </div>
 
-    <div className={` ${ authTokens && activeMenu ? "ml-72" :"" } bg-slate-50 h-[90%]`}  >
+    <div className={` ${ authTokens && activeMenu ? "ml-72" :"" } bg-slate-50 ${ authTokens ? "h-[90%]"  : "h-screen" }`}  >
     { false && authTokens && <div className="fixed left-0 top-0 w-[100%] h-screen bg-black bg-opacity-60 backdrop-blur-sm z-[9999] flex justify-center items-center  " >
                 <InfosSeller/>
               </div>
@@ -62,6 +63,7 @@ function App() {
                 <Route exact path="/customers" element={<Customers />} />
                 <Route exact path="/orders" element={<Orders />} />
                 <Route exact path="/customer complaint" element={<Complaints />} />
+                <Route exact path="/settings" element={<Settings />} />
                 
               </Route>
               

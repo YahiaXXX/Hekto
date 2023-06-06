@@ -19,3 +19,8 @@ code {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.bgSlider{
+  background: linear-gradient(180deg, #D9F5E1 0%, rgba(255, 255, 255, 0) 100%);
+
+}
