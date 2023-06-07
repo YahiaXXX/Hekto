@@ -9,7 +9,9 @@ import { timeFormat } from "d3-time-format";
 
 function Orders() {
   let bs=process.env.REACT_APP_QUERY_BASE_URL
+  let bs2=process.env.REACT_APP_COMMAND_BASE_URL
   let urlGet=`${bs}orders/getAllOrdersByShopId`
+  let urlDelete=`${bs2}orders/delete/`
   const [showPopup,setShowPopup]=useState(false)
 
 

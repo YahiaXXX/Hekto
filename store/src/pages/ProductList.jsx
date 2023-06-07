@@ -262,7 +262,7 @@ function ProductList() {
           />
         </div>
       )}
-     {   products
+     { lessThan===0 && greaterThan===0 && selectedOption===null && products
   .filter(item => item.productName.includes(search))
   .map((item, index) => (
     <Prod
@@ -280,6 +280,23 @@ function ProductList() {
       setInfoPopup={setInfoPopup}
     />
   ))}
+  {(lessThan!==0 || greaterThan!==0 || selectedOption!==null) && 
+    filtredData.map((item,index)=><Prod
+    key={item.productId}
+    products={products}
+    setProducts={setProducts}
+    setToggle={setToggle}
+    img={'data:image/svg+xml;base64,' + item.productImageUrl}
+    id={item.productId}
+    name={item.productName}
+    text={item.productDesc}
+    price={item.productPrice}
+    qte={item.productQuantity}
+    item={item}
+    setInfoPopup={setInfoPopup}
+  />)
+
+  }
   <img src={imageUrl} alt="" />
       <button
         onClick={() => navigate("/product/add")}
