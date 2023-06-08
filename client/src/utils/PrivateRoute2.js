@@ -3,11 +3,11 @@ import { useContext } from 'react'
 import AuthContext from '../contexts/AuthContext'
 
 
-export default function PrivateRoute(){
+export default function PrivateRoute2(){
  
     let {authTokens} = useContext(AuthContext);
     return (
-        !authTokens ? <Navigate to="/login" />    : <Outlet/> 
+        authTokens ? <Navigate to="/" />    : <Outlet/> 
     )
    
 }

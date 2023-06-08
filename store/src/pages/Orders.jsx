@@ -81,23 +81,35 @@ function Orders() {
         flex:1,
         headerClassName: "super-app-theme--header",
         renderCell: (param) => {
+          const handleChange = (e) => {
+
+            e.stopPropagation();
+            const newData = orders.map((row) =>
+              row.orderId === param.row.orderId
+                ? { ...row, orderStatus: e.target.value }
+                : row
+            );
+            console.log(param.row.orderStatus)
+            setOrders(newData);
+            // changeStatus(e.target.value,param.row.id)
+          };
           let color = "";
-      let value = param.formattedValue;
-      if (value === "NEW") color = "#3F51B5";
+      let value = param.row.orderStatus;
+      if (value === "NEW") color = "#C00000";
       if (value === "PENDING") color = "#800080";
       if(value==="ON_HOLD") color="#0000FF"
       if (value === "SHIPPED") color = "#607D8B";
       if (value === "DELIVERED") color = "#FF0000";
       if (value === "CLOSED") color = "#000";
          return (
-          <div
-          style={{ background: color,width:120 }}
-          className=" flex text-white font-semibold justify-center items-center px-2 py-1 bg-opacity-80  rounded-xl "
-        >
-          <p className=" hover:cursor-pointer w-full flex justify-center items-center ">
-            {param.formattedValue}
-          </p>
-        </div>
+          
+          <select defaultValue={param.formattedValue} onClick={(e)=>e.stopPropagation()} style={{borderColor: color}} onChange={handleChange}  className=' rounded-[4px] py-1 w-full border-[2px] outline-none text-black' name="" id="">
+            <option value="NEW">NEW</option>
+            <option value="PENDING">PENDING</option>
+            <option value="ON_HOLD">ON_HOLD</option>
+            <option value="SHIPPED">SHIPPED</option>
+            <option value="DELIVERED">DELIVERED</option>
+          </select>
           
         )},
       },
@@ -119,15 +131,29 @@ function Orders() {
         minWidth:200,
         flex:1,
         headerClassName: "super-app-theme--header",
-        renderCell: (param) => (
+        renderCell: (param) => {
+          const deleteOrder= async (id)=>{
+            try{
+              let res = await axios.delete(`${urlDelete}${id}`,{withCredentials:true})
+              setOrders(orders.filter(item=>item.orderId!==id))
+
+            }
+            catch(e){
+              console.log(e)
+            }
+
+          }
+          
+          
+         return (
           <div className=' flex flex-row justify-center items-center gap-4' >
             <button onClick={()=>{
               setOrderInfo(param.row)
               setShowPopup(true)}} className=' font-semibold px-4 py-1 bg-green-500 bg-opacity-40' >Consulter</button>
-             <AiFillDelete className=' text-[20px] text-red-600' />
+             <AiFillDelete onClick={()=>{deleteOrder(param.row.orderId)}} className=' text-[20px] text-red-600' />
 
           </div>
-        ),
+        )},
       },
     
   ];

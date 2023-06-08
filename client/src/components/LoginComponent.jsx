@@ -50,7 +50,7 @@ function LoginComponent() {
     const cookies = res.headers;
     console.log(res);
     setLoading(false);
-    // setAuthTokens(Cookies.get('token'))
+    setAuthTokens(res.data)
     // history("/");
 
     }

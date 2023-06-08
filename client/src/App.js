@@ -12,6 +12,9 @@ import Payment from "./pages/Payment";
 import OrderCompleted from "./pages/OrderCompleted";
 import StoresList from "./pages/StoresList";
 import Reclamation from "./pages/Reclamation";
+import PrivateRoute2 from "./utils/PrivateRoute2";
+import ProductsList from "./pages/ProductsList";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -31,11 +34,16 @@ function App() {
                   <Route exact path="/payment" element={<Payment />} />
                   <Route exact path="/order completed" element={<OrderCompleted />} />
                   <Route exact path="/stores" element={<StoresList />} />
+                  <Route exact path="/products" element={<ProductsList />} />
                   <Route exact path="/reclamation" element={<Reclamation />} />
+                  <Route exact path="/about" element={<About />} />
                 </Route>
-
-                <Route path="/login" element={<Login />} />
+               <Route element={<PrivateRoute2 />}>
+               <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+
+               </Route>
+                
       </Routes> 
    
        

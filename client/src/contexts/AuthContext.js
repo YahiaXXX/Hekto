@@ -8,6 +8,7 @@ const AuthContext = createContext();
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
+  const bs="http://localhost:8010/v1/api/shop/"
   let [authTokens, setAuthTokens] = useState(() =>
      Cookies.get('token')
       ? Cookies.get('token')

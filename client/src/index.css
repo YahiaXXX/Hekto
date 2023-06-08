@@ -65,3 +65,21 @@ ul.list-disc li::marker {
   color: red;
 } */
 
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background-color: white;
+  border: 2px solid gray;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background-color: white;
+  border: 2px solid gray;
+  border-radius: 50%;
+  cursor: pointer;
+}

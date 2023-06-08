@@ -1,6 +1,8 @@
 import React from 'react'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import {motion} from "framer-motion"
+import { useNavigate } from 'react-router-dom';
 
 
 export const responsive = {
@@ -92,13 +94,14 @@ export const responsive = {
 
 export function Seller(props) {
     return (
-      <div className=" flex flex-col justify-center items-center ">
+      <motion.div whileHover={{scale:0.9}} transition={{duration:0.5}}  className=" flex flex-col justify-center items-center ">
         <img className=" w-[200px] h-[200px] rounded-full " src={props.url} alt="seller image" />
         <h2>{props.name}</h2>
-      </div>
+      </motion.div>
     );
   } 
 function TopCategories() {
+  const  navigate=useNavigate()
     const seller = productData.map((item) => (
         <Seller
           name={item.name}
@@ -108,8 +111,12 @@ function TopCategories() {
   return (
     <section className=' my-10  py-10 ' >
         <div className=' w-full flex flex-col justify-center items-center ' >
-            <h1 className=' font-bold text-[25px] text-black' >Top Categories</h1>
-             {/* <Slider/>  */}
+        <div className=' px-8 w-full flex flex-row justify-between items-center ' >
+          <h1 className=' text-center font-bold flex-grow text-[25px] text-black' >Top Categories</h1>
+          <p onClick={()=>{
+              navigate("/categories")
+          }} className=' text-gray-500 hover:underline hover:cursor-pointer ' >see more</p>
+          </div>
              <div className='flex justify-center items-center  mt-5 w-full' >
                 <div className=' w-[70%]' >
                 <Carousel showDots={false} responsive={responsive}>

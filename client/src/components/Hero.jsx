@@ -1,12 +1,12 @@
 import React from 'react'
 import hero from "../assets/hero.svg"
 import Slider from 'react-slick';
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
+import {motion} from "framer-motion"
+import { useNavigate } from 'react-router-dom';
 
 function Hero() {
+  const navigate=useNavigate()
   return (
-    // <Slider dots={true} infinite={true} speed={500} slidesToShow={1} slidesToScroll={1}>
     <section className=' bg-[#BDE9C8] flex flex-row justify-center items-center px-16 py-10' >
     <div className=' flex-1 flex flex-col' >
         <p className=' text-[14px] text-green-500' >Best fourniture for your castle</p>
@@ -15,14 +15,14 @@ function Hero() {
 in phasellus non in justo.</p>
 
 
-   <button className=' mt-6 h-10 w-40 bg-[#42A4A4] text-white py-2 px-4' >
+   <button onClick={()=>navigate("/products")} className=' mt-6 h-10 w-40 bg-[#42A4A4] text-white py-2 px-4' >
     Shop now
 
    </button>
 
     </div>
-    <div className=' py-4 flex-1' >
-        <img src={hero} alt="" />
+    <div className='py-4 flex-1' >
+        <motion.img whileHover={{scale:1.1}} transition={{duration:0.5}} src={hero} alt="" className='' />
     </div>
 
 </section>

@@ -87,13 +87,7 @@ function AddProduct() {
 
   const addProduct= async ()=>{
     try{
-      console.log({
-        productName:productInfos.name, 
-        productPrice:productInfos.price, 
-        productQuantity:productInfos.stock,
-        productDesc:productInfos.desc, 
-        categoryName:selectedOption.label  
-      })
+     
       let res = await axios.post(urlAdd,{
         productName:productInfos.name, 
         productPrice:productInfos.price, 
@@ -101,6 +95,7 @@ function AddProduct() {
         productDesc:productInfos.desc, 
         categoryName:selectedOption.label  
       },{withCredentials:true})
+      console.log(res)
       setProductInfos({
         name:"",
         desc:"",

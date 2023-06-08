@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Hero from '../components/Hero'
 import Featured from '../components/Featured'
 import LatestProducts from '../components/LatestProducts'
@@ -11,6 +11,36 @@ import LatestBlog from '../components/LatestBlog'
 
 
 function Home() {
+  const msQueryAdmin=process.env.REACT_APP_QUERY_ADMIN_BASE_URL
+  const urlGetSellers=${}
+  const [products,setProducts]=useState([])
+  const [sellers,setSellers]=useState([])
+  const [categories,setCategories]=useState([])
+
+  const getProducts= async ()=>{
+   try{
+
+   }
+   catch(e){
+
+   }
+  }
+  const getSellers= async ()=>{
+    try{
+ 
+    }
+    catch(e){
+     
+    }
+   }
+   const getCategories= async ()=>{
+    try{
+ 
+    }
+    catch(e){
+     
+    }
+   }
   
   return (
     <>
@@ -36,9 +66,9 @@ function Home() {
     <div>
       <TopCategories/>
    </div>
-   <div>
+   {/* <div>
     <Banner/>
-   </div>
+   </div> */}
    <div>
     <LatestBlog/>
    </div>

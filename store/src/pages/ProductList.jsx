@@ -57,10 +57,10 @@ export const Prod = ({
       >
         <AiFillDelete className=" text-red-500" />
       </div>
-      <div className=" bg-green-900 bg-opacity-30 p-4">
-      <motion.div  whileHover={{ scale: 1.2 }}
+      <div className="  bg-green-900 bg-opacity-20 py-8 px-6">
+      <motion.div  whileHover={{ scale: 1.1 }}
       transition={{ duration: 0.5 }}>
-        <img src={img} alt="" className=" w-full h-full object-contain" />
+        <img src={img} alt="" className=" h-[150px] w-[150px] object-contain" />
         </motion.div>
       </div>
 
@@ -76,7 +76,7 @@ function ProductList() {
   const bs = process.env.REACT_APP_QUERY_BASE_URL;
   const bsAdmin = process.env.REACT_APP_QUERY_ADMIN_BASE_URL
   const urlCategory = `${bsAdmin}categories/getAll`
-  const urlGet = `${bs}products/getAllProducts`;
+  const urlGet = `${bs}products/getAllProductsByShopId`;
   const urlGreater=`${bs}products/findProductEntitiesByProductPriceIsGreaterThanEqual`
   const urlLess=`${bs}products/findProductEntitiesByProductPriceIsLessThanEqual`
   const urlGetByCategory=`${bs}products/getProductByCategoryName/`
@@ -280,7 +280,7 @@ function ProductList() {
       setInfoPopup={setInfoPopup}
     />
   ))}
-  {(lessThan!==0 || greaterThan!==0 || selectedOption!==null) && 
+  {lessThan!==0 || greaterThan!==0 || selectedOption!==null && 
     filtredData.map((item,index)=><Prod
     key={item.productId}
     products={products}
@@ -298,12 +298,14 @@ function ProductList() {
 
   }
   <img src={imageUrl} alt="" />
-      <button
+      <motion.button
+      whileHover={{ scale: 1.1 }}
+      transition={{ duration: 0.5 }}
         onClick={() => navigate("/product/add")}
-        className=" absolute z-10 bottom-4 right-4 flex justify-center items-center p-4 bg-white backdrop-blur-md drop-shadow-xl rounded-full"
+        className=" absolute z-10 bottom-4 right-4 flex justify-center items-center p-4 bg-green-900 bg-opacity-20 backdrop-blur-lg drop-shadow-2xl rounded-full"
       >
         <IoMdAdd className=" font-bold text-[40px]" />
-      </button>
+      </motion.button>
     </div>
     </>
     

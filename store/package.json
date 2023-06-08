@@ -9,6 +9,7 @@
     "@mui/styled-engine-sc": "^5.12.0",
     "@mui/x-data-grid": "^6.5.0",
     "@nivo/bump": "^0.83.0",
+    "@nivo/line": "^0.83.0",
     "@nivo/pie": "^0.83.0",
     "@nivo/radar": "^0.83.0",
     "@testing-library/jest-dom": "^5.16.5",

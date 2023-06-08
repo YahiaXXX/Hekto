@@ -98,7 +98,10 @@ function UpdateProductPopup(props) {
 
         </div>
         <div className=' mt-4 justify-center items-center flex flex-row w-full' >
-        <img src={props.img} alt="" className=' flex-1 w-full h-full' />
+          <div className=" flex-1" >
+          <img src={props.img} alt="" className=' w-[80%] h-[80%]' />
+          </div>
+       
        <div className='flex-1 text-[20px] text-white  flex flex-col gap-5 justify-start items-start' >
         <div className=' w-full flex flex-row gap-3 justify-between items-center' >
             <p>Name:</p>
