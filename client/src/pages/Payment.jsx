@@ -22,10 +22,10 @@ function Payment() {
 
   return (
     <div className=" w-full min-h-screen flex flex-col  ">
-      <div className=" bg-[#BDE9C8] flex justify-center items-center top-0 w-full h-[300px]">
+      <div className=" bg-[#BDE9C8] flex justify-center items-center top-0 w-full h-[200px]">
         <div className="w-[50%] flex flex-col justify-center items-start ">
           <h1 className="  font-roboto ss:leading-[70px] leading-[50px] text-[40px] text-[#101750] font-bold">
-            Shop Cart
+            Payment
           </h1>
         </div>
       </div>

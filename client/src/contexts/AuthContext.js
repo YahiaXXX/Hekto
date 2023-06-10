@@ -14,17 +14,12 @@ export const AuthProvider = ({ children }) => {
       ? Cookies.get('token')
       : null
   );
-  // let [user, setUser] = useState(() =>
-  // Cookies.get('token')
-  //     ? jwt_decode(Cookies.get('token'))
-  //     : null
-  // );
   let [loading, setLoading] = useState(false);
   const history = useNavigate();
+  
 
   let logoutUser = () => {
     setAuthTokens(null);
-    // setUser(null);
     Cookies.remove('token');
     history("/login");
   };
@@ -34,7 +29,8 @@ export const AuthProvider = ({ children }) => {
     authTokens: authTokens,
     logoutUser: logoutUser,
     // setUser: setUser,
-    setAuthTokens:setAuthTokens
+    setAuthTokens:setAuthTokens,
+    
   };
 
 //   useEffect(() => {
@@ -48,12 +44,7 @@ export const AuthProvider = ({ children }) => {
 //     return () => clearInterval(interval);
 //   }, [authTokens]);
 
-useEffect(()=>{
-console.log(Cookies.get('token'))
-// console.log(user)
-console.log(authTokens)
 
-},[])
   return (
     <AuthContext.Provider value={contextData}>
       {children}

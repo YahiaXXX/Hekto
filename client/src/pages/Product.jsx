@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductComponent from '../components/ProductComponent'
 import person from "../assets/person.png"
 import {AiFillStar} from "react-icons/ai"
 import brands from "../assets/brands.png"
+import { useParams } from 'react-router-dom'
+import  axios from "axios"
 
 export const ProductItem=()=>(
   <div className=' flex flex-col h-full w-[250px] '  >
@@ -28,16 +30,36 @@ export const ProductItem=()=>(
 
 
 function Product() {
+  const msQueryAdmin = process.env.REACT_APP_QUERY_ADMIN_BASE_URL;
+  const {id} = useParams()
+  let urlGet=`http://localhost:8071/products/getProductById/${id}`
+  const [productInfo,setProductInfo]=useState({})
+
+  const getProductInfos= async ()=>{
+    try{
+      let res = await axios.get(urlGet,{withCredentials:true})
+      console.log(res)
+      setProductInfo(res.data)
+
+    }
+    catch(e){
+
+    }
+  }
+  
+  useEffect(()=>{
+   getProductInfos()
+  },[])
   return (
     <div className=' w-full min-h-screen flex flex-col justify-center items-center '  >
-      <div className=' bg-[#BDE9C8] flex justify-center items-center top-0 w-full h-[300px]' >
+      <div className=' bg-[#BDE9C8] flex justify-center items-center top-0 w-full h-[20vh]' >
     <div className='w-[50%] flex flex-col justify-center items-start ' >
-          <h1 className="  font-roboto ss:leading-[70px] leading-[50px] text-[40px] text-[#101750] font-bold" >My account</h1>
+          <h1 className="  font-roboto ss:leading-[70px] leading-[50px] text-[40px] text-[#101750] font-bold" >Product</h1>
         </div>
         
       </div>
-        <ProductComponent/>
-        <div className=' mt-20 py-20 md:px-32 px-16 w-full bg-[#F9F8FE]' >
+        <ProductComponent productInfo={productInfo} />
+        {/* <div className=' mt-20 py-20 md:px-32 px-16 w-full bg-[#F9F8FE]' >
           <div className=' flex flex-row gap-6' >
             <p className='text-[#151875] text-[20px] font-semibold hover:underline'  >Description</p>
             <p className='text-[#151875] text-[20px] font-semibold hover:underline' >Additionnal Infos</p>
@@ -59,7 +81,7 @@ function Product() {
             
           </div>
 
-        </div>
+        </div> */}
 
         <div className='mt-20 flex flex-col w-full' >
           <div className=' px-16 w-full flex flex-row justify-start items-center '  >

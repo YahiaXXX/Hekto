@@ -56,6 +56,10 @@ code {
   background: linear-gradient(180deg, #D9F5E1 0%, rgba(255, 255, 255, 0) 100%);
 
 }
+.bgSlider2{
+  background: linear-gradient(0deg, #D9F5E1 0%, rgba(255, 255, 255, 0) 80%);
+
+}
 ul.list-disc li::marker {
   color: currentColor;
 }
@@ -82,4 +86,23 @@ input[type="range"]::-moz-range-thumb {
   border: 2px solid gray;
   border-radius: 50%;
   cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background-color: #151875;
+  transition: width 0.5s ease;
+}
+
+li:hover::before {
+  width: 100%;
 }

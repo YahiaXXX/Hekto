@@ -1,6 +1,7 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect, useContext } from "react";
 import { navLinks } from "../utils/index2";
 import  menu from "../assets/menu.svg";
+import AuthContext from "../contexts/AuthContext"
 import  close from "../assets/close.svg";
 import  logo  from "../assets/logo.svg";
 import { HiMenuAlt4 } from "react-icons/hi";
@@ -14,6 +15,9 @@ import {AiOutlineUser} from "react-icons/ai"
 import {AiOutlineShoppingCart} from "react-icons/ai"
 import {MdAddShoppingCart, MdFavorite, MdOutlineFavoriteBorder} from "react-icons/md"
 import {BsSearch} from "react-icons/bs"
+import {motion} from "framer-motion"
+import {GrLogout} from "react-icons/gr"
+import CartContext from "../contexts/CartContext";
 
 const NavBarItem = ({item,lien, title, classprops,handleClick }) => (
   <li className={`mx-4 w-full cursor-pointer ${classprops}`}>
@@ -36,6 +40,8 @@ function Navbar({bool,setBool,bool2}) {
     const [toggle, setToggle] = useState(false);
     const [selected,setSelected] = useState(0)
     const navigate=useNavigate()
+    const {logoutUser,authTokens}=useContext(AuthContext)
+    const {setShowOrders} = useContext(CartContext)
     
     return (
       <nav className="fixed bg-[#BDE9C8] z-[20] top-0 w-full flex py-4 md:px-20 px-6 justify-between items-center">
@@ -47,25 +53,29 @@ function Navbar({bool,setBool,bool2}) {
         <ul className=" list-none md:flex hidden justify-center items-center flex-[0.6]">
           {navLinks.map((item, index) => (
             <li
-              onClick={()=>{setSelected(index)}}
-              key={index}
-              className={`font-inter font-normal cursor-pointer ${
-                index === navLinks.length - 1 ? "mr-0" : "mr-10"
-              } text-[16px] text-[#2B2B39] ${index===selected  ? "font-bold"  :"" } `}
-            >
-              <NavLink  to={`/${item.lien}`} smooth >{item.title}</NavLink>
-            </li>
+            onClick={() => { setSelected(index) }}
+            key={index}
+            className={`font-inter font-normal cursor-pointer ${index === navLinks.length - 1 ? "mr-0" : "mr-10"} text-[16px] text-[#2B2B39] ${index === selected ? "font-bold" : ""}`}
+            style={{ position: "relative" }}
+          >
+            <NavLink to={`/${item.lien}`} smooth>{item.title}</NavLink>
+          </li>
           ))}
         </ul>
         </div>
         
-        <div className=" flex flex-row gap-4" > 
-          <p className=" text-[20px]" > <BsSearch/> </p>
-          <p className=" text-[16px]" > <AiOutlineUser/> </p>
-          <p className=" text-[16px]"> <MdFavorite/> </p>
-          <p onClick={()=>{
+        <div className=" flex flex-row justify-center items-center gap-4" > 
+          <motion.p onClick={()=>setShowOrders(true)}  whileHover={{scale:1.5}} transition={{duration:0.2}} className="  hover:cursor-pointer text-[20px]" > <AiOutlineUser/> </motion.p>
+          <motion.p whileHover={{scale:1.5}} transition={{duration:0.2}} onClick={()=>{
+            navigate("/favourites")
+          }}  className=" hover:cursor-pointer text-[20px]"> <MdFavorite/> </motion.p>
+          <motion.p whileHover={{scale:1.5}} transition={{duration:0.2}} onClick={()=>{
             navigate("/cart")
-          }} className=" hover:drop-shadow-lg hover:cursor-pointer text-[20px]"> <MdAddShoppingCart/> </p>
+          }} className="hover:drop-shadow-lg hover:cursor-pointer text-[20px]"> <MdAddShoppingCart/> </motion.p>
+
+          {authTokens &&  <motion.p whileHover={{scale:1.1}} transition={{duration:0.2}} onClick={()=>{
+           logoutUser()
+          }} className=" ml-3 hover:drop-shadow-lg flex flex-row gap-2 justify-center items-center hover:cursor-pointer text-[20px]"> Logout <GrLogout/> </motion.p>}
 
 
         </div>

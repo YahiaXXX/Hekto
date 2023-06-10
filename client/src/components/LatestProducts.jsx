@@ -2,7 +2,7 @@ import React from 'react'
 import Slider from './Slider'
 import {BsArrowRight} from "react-icons/bs"
 
-function LatestProducts() {
+function LatestProducts({products}) {
   return (
     <section className=' mt-10 py-10 flex flex-col justify-center items-center' >
         <h1 className=' text-[25px] text-black font-bold '  >Latest products</h1>
@@ -12,7 +12,7 @@ function LatestProducts() {
       
         <div className=' w-full flex justify-center items-center px-20 ' >
 
-        <Slider/>
+        <Slider products={products} />
         </div>
          
     </section>

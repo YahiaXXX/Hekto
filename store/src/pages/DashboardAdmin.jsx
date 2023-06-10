@@ -82,135 +82,93 @@ export const Prod=(props)=>{
 
 
 
-export default function Dashboard() {
-  let bs = process.env.REACT_APP_QUERY_BASE_URL;
-  const { baseUrl } = useContext(AuthContext);
-  let urlGetCustomers = `${baseUrl}getMySubscribers`;
-  let urlGetOrders=`${bs}orders/getAllOrdersByShopId`
-  let urlGet = `${bs}statistics/getMyStatistics?topProductNumber=10`;
-  let urlGetAge = `${bs}statistics/getMyAge`;
-  const [totalRev, setTotalRev] = useState(0);
-  const [ordersCount,setOrdersCount]=useState(0)
-  const [customersCount,setCustomersCount]=useState(0)
-  const [bestSelling,setBestSelling]=useState([])
-  const [ages, setAges] = useState({
-    between18_30: 0,
-    between30_40: 0,
-    between40_50: 0,
-    between50_60: 0,
-    under18: 0,
-    all: 0,
-  });
-
-  const getSubs = async () => {
-    try {
-      let res = await axios.get(urlGetCustomers, { withCredentials: true });
-      console.log(res);
-      setCustomersCount(res?.data?.length);
-    } catch (e) {}
-  };
-  const getOrders= async ()=>{
-    try{
-      let res = await axios.get(urlGetOrders,{withCredentials:true})
-      console.log(res)
-      setOrdersCount(res?.data?.length)
-    }
-    catch(e){
-      console.log(e)
-    }
-
-  }
-
+export default function DashboardAdmin() {
+   const urlGet="http://localhost:8091/adminStatistics/getMyAdminStatistics" 
+   const [stats, setStats] = useState({
+    ageModelStatistics: {
+        under18: 0,
+        between18_30: 0,
+        between30_40: 0,
+        between40_50: 0,
+        between50_60: 0
+    },
+    totalMaleCount: 0,
+    totalFemaleCount: 0,
+    totalProductsCount: 0,
+    totalUsers: 0,
+    totalShops: 0
+});
   let data = [
     {
       id: " -18",
-      ranges: [0, ages.all],
-      measures: [ages.all],
-      markers: [ages.under18],
+      ranges: [0, stats.totalUsers],
+      measures: [stats.totalUsers],
+      markers: [stats.ageModelStatistics.under18],
     },
     {
       id: "18-30",
-      ranges: [0, ages.all],
-      measures: [ages.all],
-      markers: [ages.between18_30],
+      ranges: [0, stats.totalUsers],
+      measures: [stats.totalUsers],
+      markers: [stats.ageModelStatistics.between18_30],
     },
     {
       id: "30-40",
-      ranges: [0, ages.all],
-      measures: [ages.all],
-      markers: [ages.between30_40],
+      ranges: [0, stats.totalUsers],
+      measures: [stats.totalUsers],
+      markers: [stats.ageModelStatistics.between30_40],
     },
     {
       id: "40-50",
-      ranges: [0, ages.all],
-      measures: [ages.all],
-      markers: [ages.between40_50],
+      ranges: [0, stats.totalUsers],
+      measures: [stats.totalUsers],
+      markers: [stats.ageModelStatistics.between40_50],
     },
     {
       id: "50-60",
-      ranges: [0, ages.all],
-      measures: [ages.all],
-      markers: [ages.between50_60],
+      ranges: [0, stats.totalUsers],
+      measures: [stats.totalUsers],
+      markers: [stats.ageModelStatistics.between50_60],
     },
   ];
-  const [dataPie, setDataPie] = useState({
-    men: 0,
-    women: 0,
-  });
+
   const [dataLine, setDataLine] = useState([]);
-  const [stats, setStats] = useState({
-    totalSelling: 0,
-    monthlyTotalPrice: {},
-    totalMaleSubs: 0,
-    totalFemaleSubs: 0,
-    bestSelling: [],
-  });
-
-  const getAges = async () => {
-    try {
-      let res = await axios.get(urlGetAge, { withCredentials: true });
-      let obj = res.data.body.body;
-      let total = 0;
-      Object.values(obj).map((item) => (total = total += item));
-      setAges({ ...obj, all: total });
-    } catch (e) {}
-  };
-
-  const sortByYearAndMonth = (a, b) => {
-    const [monthA, yearA] = a[0].split(' ');
-    const [monthB, yearB] = b[0].split(' ');
   
-    if (yearA !== yearB) {
-      return yearA - yearB;
-    } else {
-      const months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
-      return months.indexOf(monthA) - months.indexOf(monthB);
-    }
-  };
-  const getStats = async () => {
-    try {
-      let res = await axios.get(urlGet, { withCredentials: true });
-      console.log(res)
-      setBestSelling(res?.data?.bestSelling || [] )
-      setDataPie({
-        men: res?.data?.totalMaleSubs,
-        women: res?.data?.totalFemaleSubs,
-      });
-      setTotalRev(res?.data?.totalSelling);
-      const arr = Object.entries(res?.data?.monthlyTotalPrice);
-      arr.sort(sortByYearAndMonth);
+ 
+ let ressss = {
+    "ageModelStatistics": {
+        "under18": 0,
+        "between18_30": 1,
+        "between30_40": 0,
+        "between40_50": 0,
+        "between50_60": 0
+    },
+    "totalMaleCount": 1,
+    "totalFemaleCount": 0,
+    "totalProductsCount": 5,
+    "totalUsers": 1,
+    "totalShops": 6
+}
+  const getStatsAdmin= async ()=>{
+    try{
+        let res = await axios.get(urlGet,{withCredentials:true})
+        console.log(res)
+        setStats(res.data)
 
-// Extract the sorted values
-let tmp = arr.map((item)=>({ x: item[0], y:item[1] }))
-      setDataLine(tmp);
-    } catch (e) {}
-  };
-  useEffect(() => {
-    getStats();
-    getAges();
-    getOrders();
-    getSubs();
-  }, []);
+    }
+    catch(e){
+
+    }
+  }
+  
+
+  useEffect(()=>{
+    getStatsAdmin()
+  },[])
+
+
+
+ 
+ 
   return (
     <div className=" px-5 py-5 w-full gap-6 justify-center items-center flex flex-col">
       <div className="w-full sm:h-[60vh] justify-center items-center flex sm:flex-row flex-col gap-6">
@@ -303,13 +261,13 @@ let tmp = arr.map((item)=>({ x: item[0], y:item[1] }))
                 {
                   id: "Men",
                   label: "Men",
-                  value: dataPie.men,
+                  value: stats.totalMaleCount,
                   color: "hsl(285, 70%, 50%)",
                 },
                 {
                   id: "Women",
                   label: "Women",
-                  value: dataPie.women,
+                  value: stats.totalFemaleCount,
                   color: "hsl(14, 70%, 50%)",
                 },
               ]}
@@ -324,20 +282,20 @@ let tmp = arr.map((item)=>({ x: item[0], y:item[1] }))
             <div className=" px-4 bg-[#EEEEEE] justify-center gap-2 rounded-md py-3 items-center flex flex-row ">
               <IoPersonOutline className=" text-[30px] text-yellow-500" />
               <div className=" flex flex-col justify-center items-center">
-                <p className=" text-gray-500">Total orders</p>
-                <p className=" text-gray-500">{ordersCount}</p>
+                <p className=" text-gray-500">Total Users</p>
+                <p className=" text-gray-500">{stats.totalUsers}</p>
               </div>
             </div>
             <div className=" px-4 bg-[#EEEEEE] justify-center gap-2 rounded-md py-3 items-center flex flex-row ">
               <IoPersonOutline className=" text-[30px] text-yellow-500" />
               <div className=" flex flex-col justify-center items-center">
-                <p className=" text-gray-500">Total customers</p>
-                <p className=" text-gray-500">{customersCount}</p>
+                <p className=" text-gray-500">Total Shops</p>
+                <p className=" text-gray-500">{stats.totalShops}</p>
               </div>
             </div>
           </div>
 
-          <div className=" mt-4 w-full flex flex-col gap-2 ">
+          {/* <div className=" mt-4 w-full flex flex-col gap-2 ">
             <div className=" w-full flex justify-start items-center">
               <h1 className=" text-[25px] text-gray-400 font-semibold">
                 Top products:
@@ -351,7 +309,7 @@ let tmp = arr.map((item)=>({ x: item[0], y:item[1] }))
 
 
 
-          </div>
+          </div> */}
 
 
 

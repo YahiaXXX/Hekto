@@ -7,7 +7,7 @@ import {FiTwitter} from "react-icons/fi"
 import CartContext from '../contexts/CartContext'
 import {motion} from "framer-motion"
 
-function ProductComponent({productInfo}) {
+function ProductComponentFav({productInfo}) {
   const {cartContent,setCartContent,setFavourites,favourites}=useContext(CartContext)
   const addFavourite=(conf)=>{
     if(favourites.some(item => item.productId === conf.productId)){
@@ -46,14 +46,14 @@ function ProductComponent({productInfo}) {
       }
   }
   return (
-    <div className=' mt-10 bg-white  drop-shadow-xl flex flex-row gap-6 h-[450px] w-[70%] ' >
+    <div className=' mt-10 bg-white  drop-shadow-xl flex justify-center items-center flex-row gap-6 w-[70%] ' >
       <div className=' flex flex-row gap-4 py-4 justify-center items-center h-full w-[50%]' >
           
-          <div className=' flex justify-center items-center h-[100%] w-[100%] ' >
+          <div className=' flex justify-center items-center h-[300px] w-[100%] ' >
           < motion.img whileHover={{scale:0.9}} transition={{duration:0.5}} className=' object-contain h-full' src={'data:image/svg+xml;base64,' + productInfo.productImageUrl} alt="" />
           </div>
       </div>
-      <div className='py-8 flex items-start justify-center flex-col gap-4 w-[50%]' >
+      <div className='py-8 flex items-start justify-center flex-col gap-2 w-[50%]' >
         <div className=' w-full flex justify-center items-center' >
         <h1 className=' text-[30px] text-[#0D134E] font-semibold ' >{`${productInfo.productName}`}</h1>
 
@@ -100,4 +100,4 @@ function ProductComponent({productInfo}) {
   )
 }
 
-export default ProductComponent
+export default ProductComponentFav

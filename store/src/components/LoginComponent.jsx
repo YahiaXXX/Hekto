@@ -11,8 +11,12 @@ import Loader from "./Loader";
 function LoginComponent() {
   const {baseUrl,setAuthTokens,setStatus} = useContext(AuthContext)
   let urlLogin = `${baseUrl}loginShop`
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(()=>
+  localStorage.getItem('infos') ? JSON.parse(localStorage.getItem('infos'))?.email  : ""
+  );
+  const [password, setPassword] = useState(()=>
+  localStorage.getItem('infos') ? JSON.parse(localStorage.getItem('infos'))?.pwd  : ""
+  );
   const [remember, setRemember] = useState(false);
   const [loading, setLoading] = useState(false);
   const history = useNavigate();
@@ -30,8 +34,12 @@ function LoginComponent() {
       setStatus(res.data)
 
       if(remember){
-        localStorage.setItem('email',email)
-        localStorage.setItem('pwd',password)
+        localStorage.setItem('infos',JSON.stringify({
+          email:email,
+          pwd:password
+        }))
+        // localStorage.setItem('email',email)
+        // localStorage.setItem('pwd',password)
 
       }
     setLoading(false);
@@ -69,6 +77,7 @@ function LoginComponent() {
               
               <input
                 onChange={(e) => setEmail(e.target.value)}
+                value={email}
                 type="email"
                 placeholder="Email"
                 className=" w-[100%] md:w-[70%]  placeholder:text-gray-300 outline-none rounded-md bg-transparent border-solid border-[1px] border-gray-400 px-2 py-1.5 mb-4 text-[#616161]"
@@ -85,6 +94,7 @@ function LoginComponent() {
               <input
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
+                value={password}
                 placeholder="Password"
                 className=" w-[100%] md:w-[70%]  placeholder:text-gray-300 outline-none rounded-md bg-transparent border-solid border-[1px] border-gray-400 px-2 py-1.5 mb-4 text-[#616161]"
               />
