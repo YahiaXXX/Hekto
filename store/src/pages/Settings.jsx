@@ -5,6 +5,8 @@ import Loader from "../components/Loader";
 import { BiLogOutCircle } from "react-icons/bi";
 import AuthContext from "../contexts/AuthContext";
 import axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Settings() {
   const { logoutUser, baseUrl } = useContext(AuthContext);
@@ -16,17 +18,17 @@ function Settings() {
   const [pic, setPic] = useState();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [adr, setAdr] = useState({
-    street: "",
-    ville: "",
-    wilaya: "",
-  });
+  // const [adr, setAdr] = useState({
+  //   street: "",
+  //   ville: "",
+  //   wilaya: "",
+  // });
   const [profilInfo, setProfileInfo] = useState({
     name: "",
     numberPhone: "",
     email: "",
     password: "",
-    address: adr,
+    address: null,
     image: "",
   });
 
@@ -36,26 +38,38 @@ function Settings() {
       setProfileInfo(res.data);
       if (res.data.image !== null) {
         setImgUrl(
-          require(`C:/Users/apple pro/OneDrive/Desktop/e-commerce/ms-auth/images/${res?.data?.image}`)
+          require(`C:/Users/apple pro/OneDrive/Desktop/tmp/ms-auth/images/${res?.data?.image}`)
         );
       }
 
-      setAdr({
-        street: res.data.address.street,
-        ville: res.data.address.ville,
-        wilaya: res.data.address.wilaya,
-      });
-      console.log(res.data);
+      // setAdr({
+      //   street: res?.data?.address?.street,
+      //   ville: res?.data?.address?.ville,
+      //   wilaya: res?.data?.address?.wilaya,
+      // });
+      
     } catch (e) {}
   };
 
   const updateInfo = async () => {
     setLoading(true);
-    let { image, ...rest } = profilInfo;
+    let { image,active,enabled,shopId,role, ...rest } = profilInfo;
     console.log(rest);
     try {
-      let res = await axios.patch(urlUpdate, rest, { withCredentials:true});
+      let res = await axios.patch(urlUpdate,  { 
+      "name":profilInfo.name,
+      "password": profilInfo.password,
+      "numberPhone": profilInfo.numberPhone,
+      "address": {
+          "ville": profilInfo.address.ville,
+          "wilaya": profilInfo.address.wilaya,
+          "street": profilInfo.address.street,
+          "codePostal": profilInfo.address.codePostal
+       }
+  
+    }, { withCredentials:true});
       console.log(res);
+      toast.success('your informations are updated!')
     } catch (e) {
       console.log(e);
       setLoading(false);
@@ -82,6 +96,9 @@ function Settings() {
   useEffect(() => {
     getInfo();
   }, []);
+  useEffect(()=>{
+    console.log(profilInfo)
+  },[profilInfo])
 
   const handleFileUpload = () => {
     fileInputRef.current.click();
@@ -186,35 +203,47 @@ function Settings() {
                 </label>
                 <div className=" flex flex-row flex-wrap gap-2 justify-between items-center">
                   <input
-                    value={adr.ville}
+                    value={profilInfo?.address?.ville}
                     onChange={(e) => {
-                      setAdr({
-                        ...adr,
-                        ville: e.target.value,
-                      });
+                      setProfileInfo({
+                        ...profilInfo,
+                        address:{
+                          street:profilInfo?.address?.street,
+                          ville: e.target.value,
+                          wilaya: profilInfo?.address?.wilaya,
+                        }
+                      })
                     }}
                     className="text-black outline-none rounded-[4px] py-2 px-2 dark:bg-transparent bg-transparent border-[1px] border-[#A08C89]"
                     type="text"
                   />
                   <input
-                    value={adr.wilaya}
+                    value={profilInfo?.address?.wilaya}
                     onChange={(e) => {
-                      setAdr({
-                        ...adr,
-                        wilaya: e.target.value,
-                      });
+                      setProfileInfo({
+                        ...profilInfo,
+                        address:{
+                          street:profilInfo?.address?.street,
+                          ville: profilInfo?.address?.ville,
+                          wilaya:e.target.value 
+                        }
+                      })
                     }}
                     className="text-black outline-none rounded-[4px] py-2 px-2 dark:bg-transparent bg-transparent border-[1px] border-[#A08C89]"
                     type="text"
                   />
                   <input
-                    value={adr.street}
-                    onChange={(e) => {
-                      setAdr({
-                        ...adr,
-                        street: e.target.value,
-                      });
-                    }}
+                     value={profilInfo?.address?.street}
+                     onChange={(e) => {
+                       setProfileInfo({
+                         ...profilInfo,
+                         address:{
+                           street:e.target.value,
+                           ville: profilInfo?.address?.ville,
+                           wilaya:profilInfo?.address?.wilaya
+                         }
+                       })
+                     }}
                     className="text-black outline-none rounded-[4px] py-2 px-2 dark:bg-transparent bg-transparent border-[1px] border-[#A08C89]"
                     type="text"
                   />

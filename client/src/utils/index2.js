@@ -26,11 +26,11 @@ export const navLinks = [
       title: "Stores",
       icon:CgWorkAlt
     },
-    // {
-    //   lien:"blogs",
-    //   title:"Blogs",
-    //   icon:MdOutlineMedicalServices
-    // },
+    {
+      lien:"posts",
+      title:"Posts",
+      icon:MdOutlineMedicalServices
+    },
     {
       lien: "about",
       title: "About",

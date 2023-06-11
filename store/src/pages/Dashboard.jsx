@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { ResponsiveBullet } from "@nivo/bullet";
 import { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
+import {BsBoxSeam} from "react-icons/bs"
 
 const MyResponsiveBullet = ({ data /* see data tab */ }) => (
   <ResponsiveBullet
@@ -19,13 +20,13 @@ const MyResponsiveBullet = ({ data /* see data tab */ }) => (
     spacing={40}
     titleAlign="start"
     titleOffsetX={-50}
-    measureBorderColor="rgba(153, 121, 80,0.7)"
-    measureBorderWidth={4}
-    measureSize={2}
-    rangeColors="greens"
+    measureBorderColor="rgba(153, 121, 80,0.5)"
+    measureBorderWidth={6}
+    measureSize={3}
+    rangeColors="seq:greens"
     measureColors="greens"
-    markerColors="greens"
-    markerSize={3}
+    markerColors="seq:greens"
+    markerSize={5}
   />
 );
 
@@ -322,7 +323,7 @@ let tmp = arr.map((item)=>({ x: item[0], y:item[1] }))
         <div className="bg-white rounded-2xl drop-shadow-xl px-4 py-8 flex h-full flex-col sm:w-[65%] w-full ">
           <div className=" w-full flex flex-row gap-4 justify-around items-center ">
             <div className=" px-4 bg-[#EEEEEE] justify-center gap-2 rounded-md py-3 items-center flex flex-row ">
-              <IoPersonOutline className=" text-[30px] text-yellow-500" />
+              <BsBoxSeam className=" text-[30px] text-yellow-500" />
               <div className=" flex flex-col justify-center items-center">
                 <p className=" text-gray-500">Total orders</p>
                 <p className=" text-gray-500">{ordersCount}</p>
@@ -345,7 +346,7 @@ let tmp = arr.map((item)=>({ x: item[0], y:item[1] }))
             </div>
            
 
-            {bestSelling?.map((item,index)=>(
+            {bestSelling?.slice(0,2).map((item,index)=>(
               <Prod key={item.productId} {...item} />
             ))}
 

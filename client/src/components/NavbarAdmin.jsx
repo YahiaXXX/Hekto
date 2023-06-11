@@ -3,6 +3,7 @@ import searchsvg from "../assets/search.svg"
 import { IoIosNotifications } from "react-icons/io";
 import avatar from "../assets/avatar.png"
 
+
 function NavbarAdmin() {
   return (
     <div className={`${true ? " md:ml-72 " : "flex-2"} flex flex-row justify-around`} >

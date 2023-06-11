@@ -11,7 +11,8 @@ export default AuthContext;
 export const AuthProvider = ({ children }) => {
   const baseUrl ="http://localhost:8010/v1/api/shop/"
   // const baseUrl = process.env.REACT_APP_AUTH_BASE_URL
-  const [status,setStatus]=useState(false)
+  const [status,setStatus]=useState(true)
+  const [bool,setBool]=useState(false) 
   let [authTokens, setAuthTokens] = useState(() =>
      Cookies.get('token')
       ? Cookies.get('token')
@@ -28,9 +29,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const checkStatus= async ()=>{ 
+    console.log("hellooo")
     try{
-      let res  = await axios.get(`${baseUrl}getStatus`,{withCredentials: true})
+      let res  = await axios.get(`${baseUrl}getstatus`,{withCredentials: true})
       setStatus(res.data)
+      console.log(res.data)
 
     }
     catch(e){
@@ -40,7 +43,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(()=>{
    checkStatus()
-  },[])
+  },[bool])
 
 //   let updateToken = async () => {
 //     try{
@@ -66,7 +69,9 @@ export const AuthProvider = ({ children }) => {
     // setUser: setUser,
     setAuthTokens:setAuthTokens,
     status:status,
-    setStatus:setStatus
+    setStatus:setStatus,
+    bool:bool,
+    setBool:setBool
   };
 
 //   useEffect(() => {

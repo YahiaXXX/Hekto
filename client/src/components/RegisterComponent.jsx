@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SocialCard from "./SocialCard";
 import apple from "../assets/logo-apple.svg";
 import facebook from "../assets/logo-facebook.svg";
@@ -6,6 +6,9 @@ import google from "../assets/logo-google.svg";
 import { validEmail, validPassword } from "./Regex";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Loader from "../components/Loader"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function RegisterComponent() {
   const baseUrl = process.env.REACT_APP_AUTH_BASE_URL;
@@ -16,6 +19,8 @@ function RegisterComponent() {
   const [passwordErr, setPasswordErr] = useState(false);
   const [nameErr, setNameErr] = useState(false);
   const [name, setName] = useState("");
+  const [gender,setGender]=useState("MALE")
+  const [birth,setBirth]=useState(null)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -35,6 +40,20 @@ function RegisterComponent() {
     }
     return true;
   };
+ 
+  useEffect(()=>{
+   console.log({
+    name: name,
+    email: email,
+    password: password,
+    birth:birth,
+    gender:gender
+  })  
+  })
+    
+
+
+
   const handleRegister = async () => {
     if (validate) {
       setLoading(true);
@@ -43,8 +62,10 @@ function RegisterComponent() {
           name: name,
           email: email,
           password: password,
+          birthdayDate:birth,
+          userGender:gender
         });
-        console.log(res);
+        toast.success('check your email , please!');
         navigate("/login")
         
       } catch (e) {
@@ -77,6 +98,18 @@ function RegisterComponent() {
               placeholder="Password"
               className=" w-[100%]   placeholder:text-gray-300 outline-none  bg-transparent border-solid border-[1px] border-gray-200 px-2 py-1.5 mb-4 text-[#616161]"
             />
+
+            <input
+            onChange={(e)=>{setBirth(e.target.value)}}
+              type="date"
+              placeholder="Date"
+              className=" w-[100%]   placeholder:text-gray-300 outline-none  bg-transparent border-solid border-[1px] border-gray-200 px-2 py-1.5 mb-4 text-[#616161]"
+            />
+
+            <select className=" outline-none border-[#000] py-2 border-[1px] " onChange={(e)=>{setGender(e.target.value)}} name="" id="">
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+            </select>
             {/* <input 
             onChange={(e)=>setPasswordConfirmation(e.target.value)}
             type="password" 
@@ -95,8 +128,8 @@ function RegisterComponent() {
               onClick={handleRegister}
               className=" flex justify-center items-center w-full font-roboto sm:mt-8 mt-3 h-10  bg-[#008000] font-semibold text-[12px] rounded-md text-white "
             >
-              {/* { loading ? <Spinner2 height={25} width={25} color="#FFF" />      : "SIGN UP"} */}
-              Sign up
+              { loading ? <Loader/>     : "Sign up"}
+              
             </button>
             <p className=" text-gray-400">
               By joining I agree to receive emails

@@ -78,6 +78,7 @@ function AddProduct() {
     data.append("file",selectedFile)
     try{
       let res = await axios.post(`${urlImage}${id}`,data,{withCredentials:true})
+      console.log(res)
       setSelectedFile(null) 
     }
     catch(e){

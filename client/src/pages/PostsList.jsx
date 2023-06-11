@@ -10,121 +10,63 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-export const StoreItem = ({ product }) => {
-  const navigate=useNavigate()
-  return (
-    <div onClick={()=>navigate(`/product/${product.productId}`)} className=" hover:cursor-pointer flex flex-col rounded-full justify-center items-center w-[250px] h-[250px] ">
-      <img
-        src={"data:image/svg+xml;base64," + product.productImageUrl}
-        alt=""
-        className=" w-[200px] h-[200px] rounded-full object-cotain"
-      />
-      <h1 className="text-[#111C85] text-[20px] font-semibold">
-        {product.productName}
-      </h1>
-      <p>{`${product.productPrice}$`}</p>
-    </div>
-  );
-};
+export const PostItem = ({ post }) => {
+    const navigate=useNavigate()
+    return (
+      <div onClick={()=>navigate(`/post/${post.postId}`)} className=" hover:cursor-pointer flex flex-col rounded-full justify-center items-center w-[250px] h-[250px] ">
+        <img
+          src={ post.postImageUrl ? "data:image/svg+xml;base64," + post.postImageUrl : ""}
+          alt=""
+          className=" w-[200px] h-[200px] rounded-full object-cotain"
+        />
+        <h1 className="text-[#111C85] text-[20px] font-semibold">
+          {post.postTitle}
+        </h1>
+        <h1 className="text-[#111C85] text-[20px] font-semibold">
+          {post.postDescription}
+        </h1>
+        <p>{`${post.postPrice}$`}</p>
+      </div>
+    );
+  };
 
 export const Rating = ({ number }) => (
-  <div className=" flex flex-row justify-center items-center">
-    {Array.from({ length: number }, (_, index) => (
-      <AiFillStar className=" text-[20px] text-yellow-300" />
-    ))}
-    {Array.from({ length: 5 - number }, (_, index) => (
-      <AiOutlineStar className="text-[20px]" />
-    ))}
-  </div>
-);
+    <div className=" flex flex-row justify-center items-center">
+      {Array.from({ length: number }, (_, index) => (
+        <AiFillStar className=" text-[20px] text-yellow-300" />
+      ))}
+      {Array.from({ length: 5 - number }, (_, index) => (
+        <AiOutlineStar className="text-[20px]" />
+      ))}
+    </div>
+  );
+const PostsList = () => {
+    const msQueryClient = process.env.REACT_APP_QUERY_CLIENT_BASE_URL;
+    const [min, setMin] = useState(0);
+    const [max, setMax] = useState(0);
+    const urlGetPosts = `http://localhost:8081/posts/getAllPosts`;
+    const [posts, setPosts] = useState([]);
+    const [view, setView] = useState("grid");
+    const [search,setSearch]=useState("")
 
-function ProductsList() {
-  const msQueryAdmin = process.env.REACT_APP_QUERY_ADMIN_BASE_URL;
-  const urlGetCategories = `${msQueryAdmin}categories/getAll`;
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const bs = useContext(AuthContext);
-  const [search, setSearch] = useState("");
-  const [view, setView] = useState("grid");
-  const [min, setMin] = useState(0);
-  const [max, setMax] = useState(0);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [filtredData, setFiltredData] = useState([]);
+    const getPosts = async () => {
+        try {
+          let res = await axios.get(urlGetPosts, { withCredentials: true });
+          console.log(res);
+          setPosts(res.data);
+        } catch (e) {}
+      };
 
-  const urlGetProducts = `http://localhost:8071/products/getAllProducts`;
-
-  function findIntersection(arr1, arr2, arr3) {
-    const nonNullArrays = [arr1, arr2, arr3].filter((arr) => arr !== null);
-
-    if (nonNullArrays.length === 0) {
-      return [];
-    }
-
-   
-
-    const intersection = nonNullArrays[0].filter((obj1) => {
-      const id = obj1.productId;
-      return nonNullArrays.every((arr) =>
-        arr.some((obj2) => obj2.productId === id)
-      );
-    });
-
-    return intersection;
-  }
-
-  const apply = async () => {
-    let a = null;
-    let b = null;
-    let c = null;
-    if (min !== 0) {
-      a = products.filter((item) => item.productPrice > min);
-    }
-    if (max !== 0) {
-      b = products.filter((item) => item.productPrice < max);
-    }
-    if (selectedOption !== null) {
-      c = products.filter((item) => item.categoryName === selectedOption);
-    }
-    let intersection = findIntersection(a, b, c);
-    console.log(intersection);
-    setFiltredData(intersection);
-  };
-  const getProducts = async () => {
-    try {
-      let res = await axios.get(urlGetProducts, { withCredentials: true });
-      console.log(res);
-      setProducts(res.data);
-    } catch (e) {}
-  };
-
-  useEffect(() => {
-    apply();
-  }, [max, min, selectedOption]);
-  useEffect(()=>{
-    console.log(min,max)
-  },[min,max])
-
-  useEffect(() => {
-    getProducts();
-    getCategories();
-  }, []);
-  // useEffect(()=>{
-  //   console.log(filtredData)
-  // })
-  const getCategories = async () => {
-    try {
-      let res = await axios.get(urlGetCategories, { withCredentials: true });
-      console.log(res);
-      setCategories(res.data);
-    } catch (e) {}
-  };
+      useEffect(()=>{
+        getPosts()
+      },[])
 
   return (
     <div className=" w-full min-h-screen flex flex-col ">
       <div className=" bg-[#BDE9C8] flex justify-center items-center top-0 w-full h-[200px]">
         <div className="w-[50%] flex flex-col justify-center items-start ">
           <h1 className="  font-roboto ss:leading-[70px] leading-[50px] text-[40px] text-[#101750] font-bold">
-            Products
+            Posts
           </h1>
         </div>
       </div>
@@ -207,36 +149,18 @@ function ProductsList() {
             </div>
           </div>
         </div>
-        <div className=" sm:w-[80%] w-full ">
+        <div className="mx-2 sm:w-[80%] w-full ">
           <div className=" w-full flex justify-between items-center">
             <div className=" flex flex-col">
               <h1 className=" text-[#151875] font-bold text-[22px] ">
-                All products
+                All Posts
               </h1>
               <p className=" text-gray-500">
-                {`About ${products.length} results`}
+                {`About ${posts?.length} results`}
               </p>
             </div>
             <div className=" flex flex-row gap-2 ">
-              <div className=" gap-1 flex flex-row justify-center items-center">
-                <h1>Category:</h1>
-                <select
-                  onChange={(e) => setSelectedOption(e.target.value)}
-                  name=""
-                  id=""
-                  className=" outline-none px-5 border-[1px] border-[#000] "
-                >
-                  <option value="">All</option>
-                  {categories.map((item, index) => (
-                    
-                    <option value={item.categoryName}>
-                      {item.categoryName}
-                    </option>
-                  ))}
-                  
-
-                </select>
-              </div>
+             
               <div className=" gap-4 flex flex-row justify-center items-center">
                 <h1>View:</h1>
                 <motion.p
@@ -283,21 +207,15 @@ function ProductsList() {
           <div className="justify-start items-center mt-5 flex flex-row flex-wrap gap-4 h-full w-full">
             {max === 0 &&
               min === 0 &&
-              (selectedOption === null || selectedOption==="" ) &&
-              products
-                .filter((item) => item.productName.includes(search))
-                .map((item, index) => <StoreItem product={item} key={index} />)}
-            {max !== 0 ||
-              min !== 0 || (selectedOption !== null && selectedOption!=="") &&
-              (
-                filtredData.map((item, index) => (
-                  <StoreItem product={item} key={index} />
-                )))}
+              posts
+                .filter((item) => item.postTitle.includes(search))
+                .map((item, index) => <PostItem post={item} key={index} />)}
+            
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default ProductsList;
+export default PostsList

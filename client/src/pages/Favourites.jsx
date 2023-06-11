@@ -41,15 +41,15 @@ function Favourites() {
 
   return (
     <div className=" w-full min-h-screen flex flex-col ">
-      <div className=" bg-[#BDE9C8] flex justify-center items-center top-0 w-full h-[200px]">
+      <div className=" bg-[#BDE9C8] flex justify-center items-center top-0 w-full h-[250px]">
         <div className="w-[50%] flex flex-col justify-center items-start ">
           <h1 className="  font-roboto ss:leading-[70px] leading-[50px] text-[40px] text-[#101750] font-bold">
-            Products
+            Favourites
           </h1>
         </div>
       </div>
 
-      <div className="px-8 my-10 w-full justify-center items-center flex sm:flex-row flex-col sm:gap-0 gap-3 ">
+      <div className="px-8 my-10 h-full flex-grow w-full justify-center items-center flex sm:flex-row flex-col sm:gap-0 gap-3 ">
         <div className=" sm:w-[80%] w-full ">
           
           <div className="justify-center items-center mt-5 flex flex-row flex-wrap gap-4 h-full w-full">
@@ -58,6 +58,9 @@ function Favourites() {
               <ProductComponentFav productInfo={item} />
               
             ))}
+            {favourites.length===0 && 
+               <h1 className=" text-[70px] text-gray-400" >Empty</h1>
+            }
           </div>
         </div>
       </div>

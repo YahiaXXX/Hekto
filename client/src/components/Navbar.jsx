@@ -18,6 +18,8 @@ import {BsSearch} from "react-icons/bs"
 import {motion} from "framer-motion"
 import {GrLogout} from "react-icons/gr"
 import CartContext from "../contexts/CartContext";
+import {GrStatusGood} from "react-icons/gr"
+import {BsBoxSeam} from "react-icons/bs"
 
 const NavBarItem = ({item,lien, title, classprops,handleClick }) => (
   <li className={`mx-4 w-full cursor-pointer ${classprops}`}>
@@ -47,7 +49,7 @@ function Navbar({bool,setBool,bool2}) {
       <nav className="fixed bg-[#BDE9C8] z-[20] top-0 w-full flex py-4 md:px-20 px-6 justify-between items-center">
         <div className="flex flex-row flex-1 items-center" >
         <div className="flex justify-center items-center flex-2" >
-        <h1 className=" text-[30px] text-black font-bold" >Hekto</h1>
+        <h1 className=" text-[30px] text-black font-bold" >EasyShop</h1>
         </div>
         
         <ul className=" list-none md:flex hidden justify-center items-center flex-[0.6]">
@@ -65,7 +67,7 @@ function Navbar({bool,setBool,bool2}) {
         </div>
         
         <div className=" flex flex-row justify-center items-center gap-4" > 
-          <motion.p onClick={()=>setShowOrders(true)}  whileHover={{scale:1.5}} transition={{duration:0.2}} className="  hover:cursor-pointer text-[20px]" > <AiOutlineUser/> </motion.p>
+          <motion.p onClick={()=>setShowOrders(true)}  whileHover={{scale:1.5}} transition={{duration:0.2}} className="  hover:cursor-pointer text-[20px]" > <BsBoxSeam/> </motion.p>
           <motion.p whileHover={{scale:1.5}} transition={{duration:0.2}} onClick={()=>{
             navigate("/favourites")
           }}  className=" hover:cursor-pointer text-[20px]"> <MdFavorite/> </motion.p>

@@ -42,7 +42,7 @@ export const Rating=({number})=>(
 
 function StoresList() {
   const msQueryAdmin = process.env.REACT_APP_QUERY_ADMIN_BASE_URL;
-  const urlGetSellers = `${msQueryAdmin}shops/getAllShops`;
+  const urlGetSellers = `http://localhost:8010/v1/api/shop/getAllShops`;
   const bs=useContext(AuthContext)
  
   const [search,setSearch]=useState("")
@@ -53,6 +53,7 @@ function StoresList() {
     try {
       let res = await axios.get(urlGetSellers, { withCredentials: true });
       setSellers(res.data)
+      console.log(res.data)
     } catch (e) {}
   };
  

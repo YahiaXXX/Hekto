@@ -9,7 +9,7 @@ import axios from "axios";
 import Loader from "./Loader";
 
 function LoginComponent() {
-  const {baseUrl,setAuthTokens,setStatus} = useContext(AuthContext)
+  const {baseUrl,setAuthTokens,setStatus,bool,setBool} = useContext(AuthContext)
   let urlLogin = `${baseUrl}loginShop`
   const [email, setEmail] = useState(()=>
   localStorage.getItem('infos') ? JSON.parse(localStorage.getItem('infos'))?.email  : ""
@@ -29,9 +29,9 @@ function LoginComponent() {
     setLoading(true);
     try{
       let res = await axios.post(urlLogin, { email: email, password: password },{ withCredentials: true });
-      console.log(res.data)
       setAuthTokens(Cookies?.get('token'))
-      setStatus(res.data)
+      console.log(res.data)
+      setBool(prev=>!prev)
 
       if(remember){
         localStorage.setItem('infos',JSON.stringify({

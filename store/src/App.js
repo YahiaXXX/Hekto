@@ -17,6 +17,8 @@ import PrivateRoute2 from "./utils/PrivateRoute2";
 import { useStateContext } from "./contexts/ContextProvider";
 import NavbarMobile from "./components/NavbarMobile";
 import Settings from "./pages/Settings";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const {authTokens,status} = useContext(AuthContext)
@@ -35,6 +37,7 @@ function App() {
       },[screenSize])  
   return (
     <div className=" relative h-screen " >
+      <ToastContainer />
 
        { authTokens && <NavbarMobile/> }
        { authTokens && activeMenu ? (
@@ -49,7 +52,7 @@ function App() {
     </div>
 
     <div className={` ${ authTokens && activeMenu ? "ml-72" :"" } bg-slate-50 ${ authTokens ? "h-[90%]"  : "h-screen" }`}  >
-    { false && authTokens && <div className="fixed left-0 top-0 w-[100%] h-screen bg-black bg-opacity-60 backdrop-blur-sm z-[9999] flex justify-center items-center  " >
+    { !status && authTokens && <div className="fixed left-0 top-0 w-[100%] h-screen bg-black bg-opacity-60 backdrop-blur-sm z-[9999] flex justify-center items-center  " >
                 <InfosSeller/>
               </div>
                

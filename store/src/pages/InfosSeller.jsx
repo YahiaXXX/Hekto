@@ -7,11 +7,12 @@ import {HiOutlineLogout} from "react-icons/hi"
 import Loader from "../components/Loader";
 
 const InfosSeller = () => {
-  const { baseUrl,logoutUser,setStatus } = useContext(AuthContext);
+  const { baseUrl,logoutUser,setBool } = useContext(AuthContext);
   const urlUpdate = `${baseUrl}activateShop`;
   const urlImg = `${baseUrl}uploadImage`;
-  const [name, setName] = useState("");
+  
   const [loading,setLoading]=useState(false)
+  const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [pwd, setPwd] = useState("");
   const [adr, setAdr] = useState({
@@ -74,8 +75,17 @@ const InfosSeller = () => {
       });
 
       console.log(res);
-      setStatus(true)
+      setName("")
+      setPhone("")
+      setAdr({
+        ville: "",
+        wilaya: "",
+        street: "",
+        codePostal: "",
+      })
+      setPwd("")
       setLoading(false)
+      setBool(prev=>!prev)
     } catch (e) {
       console.log(e);
       setLoading(false)

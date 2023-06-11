@@ -3,6 +3,11 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import {motion} from "framer-motion"
 import { useNavigate } from 'react-router-dom';
+import cat1 from "../assets/1.svg"
+import cat2 from "../assets/2.svg"
+import cat3 from "../assets/3.svg"
+import cat4 from "../assets/4.svg"
+import cat5 from "../assets/5.svg"
 
 
 export const responsive = {
@@ -29,11 +34,21 @@ export const responsive = {
 
 export function Category(props) {
   let url = ""
-  if(props.name==="Electronics"){}
-  if(props.name==="Fashion and Apparel"){}
-  if(props.name==="Home and Kitchen"){}
-  if(props.name==="Beauty and Personal Care"){}
-  if(props.name==="Health and Fitness"){}
+  if(props.name==="Electronics"){
+    let url=cat1
+  }
+  if(props.name==="Fashion and Apparel"){
+    let url=cat2
+  }
+  if(props.name==="Home and Kitchen"){
+    let url=cat3
+  }
+  if(props.name==="Beauty and Personal Care"){
+    let url=cat4
+  }
+  if(props.name==="Health and Fitness"){
+    let url=cat5
+  }
   if(props.name==="Toys and Games"){}
   if(props.name==="Books and Media"){}
   if(props.name==="Sports and Outdoors"){}

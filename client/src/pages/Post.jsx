@@ -5,6 +5,7 @@ import {AiFillStar} from "react-icons/ai"
 import brands from "../assets/brands.png"
 import { useParams } from 'react-router-dom'
 import  axios from "axios"
+import PostComponent from '../components/PostComponent'
 
 export const ProductItem=()=>(
   <div className=' flex flex-col h-full w-[250px] '  >
@@ -29,16 +30,16 @@ export const ProductItem=()=>(
 )
 
 
-function Product() {
-  const msQueryAdmin = process.env.REACT_APP_QUERY_ADMIN_BASE_URL;
+function Post() {
   const {id} = useParams()
-  let urlGet=`http://localhost:8071/products/getProductById/${id}`
-  const [productInfo,setProductInfo]=useState({})
+  let urlGet=`http://localhost:8081/posts/getPostById/${id}`
+  const [postInfo,setPostInfo]=useState({})
 
-  const getProductInfos= async ()=>{
+  const getPostInfos= async ()=>{
     try{
       let res = await axios.get(urlGet,{withCredentials:true})
-      setProductInfo(res.data)
+      console.log(res)
+      setPostInfo(res.data)
 
     }
     catch(e){
@@ -47,17 +48,17 @@ function Product() {
   }
   
   useEffect(()=>{
-   getProductInfos()
+   getPostInfos()
   },[])
   return (
     <div className=' w-full min-h-screen flex flex-col justify-center items-center '  >
       <div className=' bg-[#BDE9C8] flex justify-center items-center top-0 w-full h-[20vh]' >
     <div className='w-[50%] flex flex-col justify-center items-start ' >
-          <h1 className="  font-roboto ss:leading-[70px] leading-[50px] text-[40px] text-[#101750] font-bold" >Product</h1>
+          <h1 className="  font-roboto ss:leading-[70px] leading-[50px] text-[40px] text-[#101750] font-bold" >Post</h1>
         </div>
         
       </div>
-        <ProductComponent productInfo={productInfo} />
+        <PostComponent postInfo={postInfo} />
         {/* <div className=' mt-20 py-20 md:px-32 px-16 w-full bg-[#F9F8FE]' >
           <div className=' flex flex-row gap-6' >
             <p className='text-[#151875] text-[20px] font-semibold hover:underline'  >Description</p>
@@ -84,7 +85,7 @@ function Product() {
 
         <div className='mt-20 flex flex-col w-full' >
           <div className=' px-16 w-full flex flex-row justify-start items-center '  >
-            <h1 className=' text-[#151875] font-bold text-[32px]' >Related Products:</h1>
+            <h1 className=' text-[#151875] font-bold text-[32px]' >Other posts:</h1>
           </div>
           <div className=' mt-10 h-full py-10 flex-wrap flex flex-row gap-4 justify-center items-center' >
             <ProductItem/>
@@ -101,4 +102,4 @@ function Product() {
   )
 }
 
-export default Product
+export default Post 

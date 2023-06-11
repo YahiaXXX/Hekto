@@ -88,9 +88,7 @@ input[type="range"]::-moz-range-thumb {
   cursor: pointer;
 }
 
-::-webkit-scrollbar {
-  display: none;
-}
+
 
 li::before {
   content: "";
@@ -105,4 +103,24 @@ li::before {
 
 li:hover::before {
   width: 100%;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+
+.orderBar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.orderBar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.orderBar::-webkit-scrollbar-track {
+  background-color: "gray";
+}
+div.orderBar::-webkit-scrollbar {
+  display: initial;
+  margin-left: 4px;
 }

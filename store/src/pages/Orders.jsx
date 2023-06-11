@@ -4,14 +4,15 @@ import {AiFillDelete} from "react-icons/ai"
 import PopupOrder from '../components/PopupOrder';
 import axios from 'axios';
 import { timeFormat } from "d3-time-format";
+import { toast } from 'react-toastify';
 
 
 
 function Orders() {
   let bs=process.env.REACT_APP_QUERY_BASE_URL
   let bs2=process.env.REACT_APP_COMMAND_BASE_URL
-  let urlGet=`${bs}orders/getAllOrdersByShopId`
-  let urlDelete=`${bs2}orders/delete/`
+  let urlGet=`http://localhost:8071/orders/getAllOrdersByShopId`
+ 
   const [showPopup,setShowPopup]=useState(false)
 
 
@@ -81,33 +82,33 @@ function Orders() {
         flex:1,
         headerClassName: "super-app-theme--header",
         renderCell: (param) => {
-          const handleChange = (e) => {
-
+          
+          const handleChange = async (e) => {
+            const urlUpdate=`http://localhost:8070/orders/updateOrderStatus?orderId=${param.row.orderId}&newOrderStatus=${e.target.value}`
+            console.log(urlUpdate)
+            let res = await axios.post(urlUpdate,{},{withCredentials:true})
+            console.log(res)
             e.stopPropagation();
             const newData = orders.map((row) =>
               row.orderId === param.row.orderId
                 ? { ...row, orderStatus: e.target.value }
                 : row
             );
-            console.log(param.row.orderStatus)
             setOrders(newData);
             // changeStatus(e.target.value,param.row.id)
           };
           let color = "";
       let value = param.row.orderStatus;
-      if (value === "NEW") color = "#C00000";
       if (value === "PENDING") color = "#800080";
       if(value==="ON_HOLD") color="#0000FF"
-      if (value === "SHIPPED") color = "#607D8B";
       if (value === "DELIVERED") color = "#FF0000";
-      if (value === "CLOSED") color = "#000";
+      if (value === "REMOVED") color = "#C00000";
          return (
           
           <select defaultValue={param.formattedValue} onClick={(e)=>e.stopPropagation()} style={{borderColor: color}} onChange={handleChange}  className=' rounded-[4px] py-1 w-full border-[2px] outline-none text-black' name="" id="">
-            <option value="NEW">NEW</option>
+      
             <option value="PENDING">PENDING</option>
             <option value="ON_HOLD">ON_HOLD</option>
-            <option value="SHIPPED">SHIPPED</option>
             <option value="DELIVERED">DELIVERED</option>
           </select>
           
@@ -132,9 +133,13 @@ function Orders() {
         flex:1,
         headerClassName: "super-app-theme--header",
         renderCell: (param) => {
+          
+
           const deleteOrder= async (id)=>{
+            let urlDelete=`http://localhost:8080/orders/delete/${id}`
             try{
-              let res = await axios.delete(`${urlDelete}${id}`,{withCredentials:true})
+              let res = await axios.delete(urlDelete,{withCredentials:true})
+              console.log(res)
               setOrders(orders.filter(item=>item.orderId!==id))
 
             }
@@ -150,7 +155,7 @@ function Orders() {
             <button onClick={()=>{
               setOrderInfo(param.row)
               setShowPopup(true)}} className=' font-semibold px-4 py-1 bg-green-500 bg-opacity-40' >Consulter</button>
-             <AiFillDelete onClick={()=>{deleteOrder(param.row.orderId)}} className=' text-[20px] text-red-600' />
+             {/* <AiFillDelete onClick={()=>{deleteOrder(param.row.orderId);toast.success('Item deleted!');}} className=' hover:cursor-pointer hover:bg-red-600 hover:bg-opacity-20 rounded-full  text-[20px] text-red-600' /> */}
 
           </div>
         )},

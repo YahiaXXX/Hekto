@@ -7,6 +7,7 @@ import {BiImageAdd} from "react-icons/bi"
 import axios from "axios"
 import Loader from "../components/Loader"
 import {motion} from "framer-motion"
+import { useNavigate } from 'react-router-dom'
 
 
 function VintagePost() {
@@ -14,6 +15,7 @@ function VintagePost() {
     const postImage="http://localhost:8080/posts/matchImageWithPost/"
     const [selectedFile,setSelectedFile]=useState(null)
     const fileInputRef = useRef(null);
+    const navigate=useNavigate();
     const [loading,setLoading]=useState(false)
     const handleFileUpload = () => {
         fileInputRef.current.click();
@@ -28,7 +30,7 @@ function VintagePost() {
        const [info,setInfo]=useState({
         name:"",
         desc:"",
-        price:"",
+        price:0,
  })
 
  const share= async ()=>{
@@ -62,10 +64,11 @@ function VintagePost() {
     setInfo({
       name:"",
       desc:"",
-      price:"",
+      price:0,
 })
 setSelectedFile(null)
 setLoading(false)
+navigate("/posts")
   }
   catch(e){
     setLoading(false)

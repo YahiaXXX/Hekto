@@ -84,14 +84,14 @@ function ProductComponentFav({productInfo}) {
 
         </div>
 
-        <div className=' mt-4 w-full' >
+        {/* <div className=' mt-4 w-full' >
           <div className=' w-[50%] py-1 justify-around items-center drop-shadow-lg  flex flex-row bg-gray-100' >
             <p className=' text-blue-300 ' >Shop</p>
             <p className=' text-black' >Boutique name</p>
 
           </div>
             
-        </div>
+        </div> */}
 
 
       </div>

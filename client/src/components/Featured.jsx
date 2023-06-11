@@ -195,7 +195,7 @@ function Featured({ products, sellers, subs }) {
         </div>
 
         <div className=" py-5 bgSlider flex justify-center items-center  mt-5 w-full">
-          <div className=" w-[70%]">
+          <div className=" w-[75%]">
             <Carousel showDots={false} responsive={responsive}>
               {seller}
             </Carousel>
